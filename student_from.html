@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starkashi Technology Registration</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+body{
+background:linear-gradient(135deg,#0f172a,#1e293b);
+padding:30px;color:#fff;
+}
+.container{
+max-width:950px;margin:auto;
+background:#ffffff10;
+backdrop-filter:blur(12px);
+padding:30px;border-radius:20px;
+}
+h1{text-align:center;color:#38bdf8;}
+p{text-align:center;margin-bottom:20px;color:#ddd;}
+.section-title{
+margin:20px 0 10px;
+color:#facc15;font-size:20px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+input,select,textarea{
+width:100%;padding:10px;
+border-radius:8px;border:none;margin-top:5px;
+}
+textarea{height:80px;}
+label{margin-top:10px;display:block;}
+.qr-box{text-align:center;margin-top:15px;}
+.qr-box img{width:200px;height:200px;background:#fff;padding:10px;border-radius:10px;}
+button{
+width:100%;padding:15px;margin-top:20px;
+background:#38bdf8;border:none;border-radius:10px;
+font-size:18px;font-weight:bold;cursor:pointer;
+}
+.success{
+display:none;text-align:center;
+margin-top:15px;background:#22c55e;padding:10px;border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Starkashi Technology</h1>
+<p>Student Program Registration Form<br>In Collaboration with Toogle Group</p>
+
+<form id="regForm" enctype="multipart/form-data">
+
+<div class="section-title">Personal Details</div>
+<div class="grid">
+<div><label>Full Name</label><input type="text" name="name" required></div>
+<div><label>Parent Name</label><input type="text" name="parent" required></div>
+<div><label>DOB</label><input type="date" name="dob" required></div>
+
+<div>
+<label>Gender</label>
+<select name="gender" required>
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+
+<div><label>Mobile</label><input type="tel" name="mobile" required></div>
+<div><label>Email</label><input type="email" name="email" required></div>
+</div>
+
+<label>Address</label>
+<textarea name="address" required></textarea>
+
+<div class="section-title">Academic Details</div>
+<div class="grid">
+<div><label>College</label><input type="text" name="college" required></div>
+<div><label>Branch</label><input type="text" name="branch" required></div>
+<div><label>Year/Sem</label><input type="text" name="year" required></div>
+<div><label>Roll</label><input type="text" name="roll" required></div>
+</div>
+
+<div class="section-title">Program Details</div>
+<div class="grid">
+
+<div>
+<label>Interested Course</label>
+<select name="course" required>
+<option value="">Select Course</option>
+<option>Generative AI</option>
+<option>Data Analysis</option>
+<option>Cyber Security</option>
+<option>Cloud Computing</option>
+<option>Java</option>
+<option>Python</option>
+<option>Django</option>
+<option>AI / ML</option>
+</select>
+</div>
+
+<div>
+<label>Batch Mode</label>
+<select id="mode" name="mode" required>
+<option value="">Select Mode</option>
+<option value="Offline">Offline    >> Rs 5000</option>
+<option value="Online">Online    >> Rs 3000</option>
+</select>
+</div>
+
+<div>
+<label>Preferred Time</label>
+<select name="batch" required>
+<option value="">Select Time Slot</option>
+<option>7:00 AM to 8:30 AM</option>
+<option>8:30 AM to 10:00 AM</option>
+<option>10:00 AM to 11:30 AM</option>
+<option>11:30 AM to 1:00 PM</option>
+<option>1:00 PM to 2:30 PM</option>
+<option>2:30 PM to 4:00 PM</option>
+<option>4:00 PM to 5:30 PM</option>
+<option>5:30 PM to 7:00 PM</option>
+<option>7:00 PM to 8:30 PM</option>
+</select>
+</div>
+
+</div>
+
+<label>Why Join?</label>
+<textarea name="reason" required></textarea>
+
+<div class="section-title">Campus Ambassador</div>
+<label><input type="checkbox" name="ambassador"> Become Campus Ambassador</label>
+
+<div class="section-title">Payment</div>
+<div class="qr-box">
+<p>Select mode to generate payment QR</p>
+<img id="qrCode" src="" alt="QR Code">
+<p>UPI ID: 9569970915@kotakbank</p>
+</div>
+
+<label>Upload Payment Screenshot</label>
+<input type="file" name="paymentScreenshot" required>
+
+<label>UPI Transaction ID</label>
+<input type="text" name="upiid" required>
+
+<div class="section-title">Declaration</div>
+<p>I confirm all details are correct & payment done.</p>
+
+<div class="grid">
+<div><label>Signature</label><input type="text" name="signature" required></div>
+<div><label>Date</label><input type="date" name="date" required></div>
+</div>
+
+<button type="submit">Submit</button>
+
+<div class="success" id="successMsg">🎉 Submitted Successfully! your amount is non refundable </div>
+
+</form>
+</div>
+
+<script>
+const mode = document.getElementById("mode");
+const qr = document.getElementById("qrCode");
+
+function updateQR() {
+let amount = 0;
+
+if (mode.value === "Offline") {
+amount = 5000;
+} else if (mode.value === "Online") {
+amount = 3000;
+} else {
+qr.src = "";
+return;
+}
+
+qr.src =
+"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=9569970915@kotakbank&pn=Starkashi%20Technology&am=" +
+amount +
+"&cu=INR";
+}
+
+mode.addEventListener("change", updateQR);
+
+document.getElementById("regForm").addEventListener("submit", function(e){
+e.preventDefault();
+
+let formData = new FormData(this);
+
+fetch("https://script.google.com/macros/s/AKfycbzTvlcJWdWknYILfZ_wPpxsTWRHOLL7PcVH4tqAWc-P8UyLLAN7z-Va1M6B5mM5iKfv/exec", {
+method:"POST",
+body:formData
+})
+.then(res => res.text())
+.then(data => {
+document.getElementById("successMsg").style.display = "block";
+this.reset();
+qr.src = "";
+})
+.catch(err => alert("Error submitting form"));
+});
+</script>
+
+</body>
+</html>
