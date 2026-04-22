@@ -106,12 +106,7 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-             <button
-  className="bg-slate-900 text-white p-3 rounded-full text-center font-bold text-xs"
-  onClick={() => window.location.href = "https://studentfrom.vercel.app/"}
->
-  STUDENT PROGRAM
-</button>
+             <button className="bg-slate-900 text-white p-3 rounded-full text-center font-bold text-xs" onClick={() => window.location.href = "https://studentfrom.vercel.app/"}>STUDENT PROGRAM</button>
             </div>
           </motion.div>
         )}
