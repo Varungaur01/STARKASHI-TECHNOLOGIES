@@ -76,7 +76,7 @@ const Navbar = () => {
             </a>
           ))}
           <button className="bg-slate-900 text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-slate-800 transition-all shadow-sm">
-            Get Started
+            <a href="student_form.html >studentform</a>
           </button>
         </div>
 
